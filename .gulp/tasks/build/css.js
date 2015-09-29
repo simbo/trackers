@@ -15,6 +15,8 @@ module.exports = [
 
             .src(path.join(this.paths.css, '*.styl'))
 
+            .pipe(this.plugins.sourcemaps.init())
+
             .pipe(this.plugins.stylus({
                 paths: [
                     path.join(this.paths.css, 'imports'),
@@ -26,16 +28,7 @@ module.exports = [
                 url: {
                     name: 'inline-url',
                     limit: false
-                },
-                sourcemap: {
-                    inline: true,
-                    sourceRoot: '.',
-                    basePath: path.relative(this.paths.cwd, this.paths.cssDest)
                 }
-            }))
-
-            .pipe(this.plugins.sourcemaps.init({
-                loadMaps: true
             }))
 
             .pipe(this.plugins.postcss([
