@@ -1,12 +1,12 @@
 'use strict';
 
-const Tracker = require('./modules/tracker.js');
+var Tracker = require('./modules/tracker.js');
 
-const tracker = new Tracker();
+var tracker = new Tracker();
 
 tracker.start();
 
-window.setTimeout(() => {
+window.setTimeout(function() {
     tracker.stop();
     console.log(tracker.tracked);
 }, 1000);
