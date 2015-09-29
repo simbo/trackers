@@ -23,7 +23,6 @@
   "devDependencies": {
     "arrayify": "^1.0.0",
     "autoprefixer": "^6.0.3",
-    "babelify": "^6.3.0",
     "browserify": "^11.2.0",
     "css-mqpacker": "^4.0.0",
     "csswring": "^4.0.0",

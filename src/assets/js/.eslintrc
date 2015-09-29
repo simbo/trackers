@@ -1,13 +1,10 @@
 {
   "root": true,
-  "extends": "simbo/browser/es6",
+  "extends": "simbo/browser",
   "env": {
     "commonjs": true
   },
   "globals": {
     "global": true
-  },
-  "rules": {
-    "no-underscore-dangle": 0
   }
 }

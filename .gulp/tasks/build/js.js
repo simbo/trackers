@@ -2,8 +2,7 @@
 
 var path = require('path');
 
-var babelify = require('babelify'),
-    browserify = require('browserify'),
+var browserify = require('browserify'),
     eventStream = require('event-stream'),
     glob = require('glob'),
     vinylBuffer = require('vinyl-buffer'),
@@ -24,9 +23,7 @@ module.exports = [
                     entries: [file],
                     insertGlobals: false,
                     debug: true,
-                    transform: [
-                        babelify
-                    ]
+                    transform: []
                 })
                     .bundle().on('error', this.log.error)
                     .pipe(vinylSource(path.relative(this.paths.js, file)))

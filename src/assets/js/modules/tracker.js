@@ -1,76 +1,106 @@
 'use strict';
 
-function now() {
-    return new Date().getTime();
+module.exports = Tracker;
+
+function Tracker(tracked, tracking, description) {
+
+    var properties = {
+        tracked: 0,
+        tracking: false,
+        description: ''
+    };
+
+    Object.defineProperties(this, {
+
+        tracked: {
+            get: function() {
+                return Tracker.msToDuration(properties.tracked);
+            },
+            set: function(duration) {
+                if (typeof duration === 'number') {
+                    duration = Tracker.msToDuration(duration);
+                } else if (Array.isArray(duration)) {
+                    duration = duration.reduce(function(durationObj, item, i) {
+                        var durationIndex = ['h', 'm', 's', 'ms'];
+                        durationObj[durationIndex[i]] = item;
+                        return durationObj;
+                    }, {});
+                }
+                if (typeof duration === 'object') {
+                    properties.tracked = Tracker.durationToMs(duration);
+                }
+            }
+        },
+
+        tracking: {
+            get: function() {
+                return properties.tracking !== false;
+            },
+            set: function(tracking) {
+                if (typeof tracking === 'number' || tracking === false) {
+                    properties.tracking = tracking;
+                }
+            }
+        },
+
+        description: {
+            get: function() {
+                return properties.tracked;
+            },
+            set: function(description) {
+                if (typeof description === 'string' && (description = description.trim()).length > 0) {
+                    properties.description = description;
+                }
+            }
+        }
+
+    });
+
+    this.tracked = tracked;
+    this.tracking = tracking;
+    this.description = description;
+
+    this.start = function() {
+        this.tracking = Tracker.now();
+        return this;
+    };
+
+    this.stop = function() {
+        if (this.tracking !== false) {
+            this.tracked += Tracker.now() - this.tracking;
+            this.tracking = false;
+        }
+        return this;
+    };
+
+    this.merge = function(tracker) {
+        if (tracker instanceof Tracker && !tracker.tracking) {
+            this.tracked += Tracker.durationToMs(tracker.tracked);
+            this.description += '\n' + tracker.description;
+        }
+        return this;
+    };
+
 }
 
-function msToDuration(ms) {
+Tracker.now = function() {
+    return new Date().getTime();
+};
+
+Tracker.msToDuration = function(ms) {
     return {
         h: Math.floor(ms / (1000 * 60 * 60)),
         m: Math.floor(ms / (1000 * 60) % 60),
         s: Math.floor(ms / 1000 % 60),
         ms: Math.floor(ms % 1000)
     };
-}
+};
 
-function durationToMs(duration) {
-    let ms = 0;
+Tracker.durationToMs = function(duration) {
+    var ms = 0;
     if (duration.h) ms += parseInt(duration.h, 10) * 60 * 60 * 1000;
     if (duration.m) ms += parseInt(duration.m, 10) * 60 * 1000;
     if (duration.s) ms += parseInt(duration.s, 10) * 1000;
     if (duration.ms) ms += parseInt(duration.ms, 10);
     return ms;
-}
-
-class Tracker {
-
-    constructor(description = '') {
-        this._tracking = false;
-        this._tracked = 0;
-        this._description;
-        this.description = description;
-    }
-
-    set description(description) {
-        if (typeof description === 'string' && (description = description.trim()).length > 0) {
-            this._description = description;
-        }
-    }
-
-    get description() {
-        return this._description;
-    }
-
-    get tracked() {
-        return msToDuration(this._tracked);
-    }
-
-    set tracked(duration) {
-        if (typeof duration === 'number') {
-            duration = msToDuration();
-        }
-        else if (Array.isArray(duration)) {
-            duration = duration.reduce((durationObj, item, i) => {
-                const durationIndex = ['h', 'm', 's', 'ms'];
-                durationObj[durationIndex[i]] = item;
-                return durationObj;
-            }, {});
-        }
-        if (typeof duration === 'object') {
-            this._tracked = durationToMs(duration);
-        }
-    }
-
-    start() {
-        this._tracking = now();
-        return this;
-    }
-
-    stop() {
-        if (this._tracking) this._tracked += now() - this._tracking;
-        return this;
-    }
-
-}
-
-module.exports = Tracker;
+};
