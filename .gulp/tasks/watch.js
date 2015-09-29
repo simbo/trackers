@@ -14,6 +14,9 @@ module.exports = [
             }, {
                 glob: this.paths.css + '/**/*.styl',
                 tasks: ['build:css', 'livereload']
+            }, {
+                glob: this.paths.src + '/**/*.jade',
+                tasks: ['build:html', 'livereload']
             }
         ];
         watchers.forEach(function(watcher) {
