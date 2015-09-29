@@ -8,7 +8,8 @@ module.exports = [
         this.runSequence(
             [
                 'clean:css',
-                'clean:js'
+                'clean:js',
+                'clean:html'
             ],
             done
         );

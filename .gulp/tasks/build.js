@@ -10,7 +10,8 @@ module.exports = [
             'clean',
             [
                 'build:css',
-                'build:js'
+                'build:js',
+                'build:html'
             ],
             done
         );
