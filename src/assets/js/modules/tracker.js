@@ -61,22 +61,22 @@ function Tracker(tracked, tracking, description) {
     this.description = description;
 
     this.start = function() {
-        this.tracking = Tracker.now();
+        properties.tracking = Tracker.now();
         return this;
     };
 
     this.stop = function() {
         if (this.tracking !== false) {
-            this.tracked += Tracker.now() - this.tracking;
-            this.tracking = false;
+            properties.tracked += Tracker.now() - properties.tracking;
+            properties.tracking = false;
         }
         return this;
     };
 
     this.merge = function(tracker) {
         if (tracker instanceof Tracker && !tracker.tracking) {
-            this.tracked += Tracker.durationToMs(tracker.tracked);
-            this.description += '\n' + tracker.description;
+            properties.tracked += Tracker.durationToMs(tracker.tracked);
+            properties.description += '\n' + tracker.description;
         }
         return this;
     };
