@@ -1,10 +1,10 @@
 'use strict';
 
-var onDomReady = require('modules/on-dom-ready'),
-    onValueUpdate = require('modules/on-value-update'),
-    renderTemplate = require('modules/render-template'),
-    textareaAutosize = require('modules/textarea-autosize'),
-    Tracker = require('modules/tracker');
+var onDomReady = require('functions/on-dom-ready'),
+    onValueUpdate = require('functions/on-value-update'),
+    renderTemplate = require('functions/render-template'),
+    textareaAutosize = require('functions/textarea-autosize'),
+    Tracker = require('classes/tracker');
 
 var $trackerList,
     storage = window.localStorage || {},
