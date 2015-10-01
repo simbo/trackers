@@ -8,9 +8,7 @@ module.exports = {
 
     del: function(items, done) {
         if (items.length > 0) {
-            this.util.log(
-                'Deleted ' + items.length +
-                ' item' + (items.length === 1 ? '' : 's') + ': \n' +
+            this.util.log('\n' +
                 items.reduce(function(list, item) {
                     return list.concat([
                         gUtil.colors.red('  ✘ ') +
@@ -19,6 +17,10 @@ module.exports = {
                         )
                     ]);
                 }.bind(this), []).join('\n')
+            );
+            this.util.log(
+                'Deleted ' + items.length +
+                ' item' + (items.length === 1 ? '' : 's') + '.'
             );
         }
         done();
