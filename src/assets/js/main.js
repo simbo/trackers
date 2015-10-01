@@ -1,6 +1,7 @@
 'use strict';
 
 var onDomReady = require('modules/on-dom-ready'),
+    onValueUpdate = require('modules/on-value-update'),
     renderTemplate = require('modules/render-template'),
     textareaAutosize = require('modules/textarea-autosize'),
     Tracker = require('modules/tracker');
@@ -39,6 +40,10 @@ function addTracker(tracker) {
     $trackerList.insertBefore($tracker, $trackerList.firstChild);
     $trackerDescription = $tracker.querySelectorAll('.tracker-description')[0];
     textareaAutosize($trackerDescription);
+    onValueUpdate($trackerDescription, function() {
+        tracker.description = this.value;
+        storeTrackers();
+    });
     storeTrackers();
 }
 
