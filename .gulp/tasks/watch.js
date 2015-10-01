@@ -10,13 +10,25 @@ module.exports = [
         var watchers = [
             {
                 glob: this.paths.js + '/**/*.js',
-                tasks: ['build:js', 'livereload']
+                tasks: [
+                    'clean:js',
+                    'build:js',
+                    'livereload'
+                ]
             }, {
                 glob: this.paths.css + '/**/*.styl',
-                tasks: ['build:css', 'livereload']
+                tasks: [
+                    'clean:css',
+                    'build:css',
+                    'livereload'
+                ]
             }, {
                 glob: this.paths.src + '/**/*.jade',
-                tasks: ['build:html', 'livereload']
+                tasks: [
+                    'clean:html',
+                    'build:html',
+                    'livereload'
+                ]
             }
         ];
         watchers.forEach(function(watcher) {
