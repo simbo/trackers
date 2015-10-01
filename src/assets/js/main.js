@@ -6,7 +6,13 @@ var onDomReady = require('./modules/on-dom-ready.js'),
     Tracker = require('./modules/tracker.js');
 
 var $trackerList,
+    storage = window.localStorage || {},
+    trackers = [],
     trackerTemplate;
+
+if (!window.localStorage) {
+    throw new Error('localStorage not available');
+}
 
 onDomReady(function() {
 
@@ -14,6 +20,8 @@ onDomReady(function() {
     trackerTemplate = document.getElementById('tracker-template').innerHTML;
 
     document.getElementById('add-tracker').addEventListener('click', addTracker);
+
+    restoreTrackers();
 
 });
 
@@ -24,10 +32,38 @@ onDomReady(function() {
  */
 function addTracker(tracker) {
     var $tracker,
-        $trackerDescription;
-    tracker = tracker instanceof Tracker ? tracker : new Tracker();
+        $trackerDescription,
+        trackerID = trackers.length;
+    tracker = trackers[trackerID] = tracker instanceof Tracker ? tracker : new Tracker();
     $tracker = renderTemplate(trackerTemplate, tracker);
-    $trackerList.appendChild($tracker);
+    $trackerList.insertBefore($tracker, $trackerList.firstChild);
     $trackerDescription = $tracker.querySelectorAll('.tracker-description')[0];
     textareaAutosize($trackerDescription);
+    storeTrackers();
+}
+
+/**
+ * store tracker in local storage
+ * @return {void}
+ */
+function storeTrackers() {
+    storage.setItem('trackers',
+        JSON.stringify(trackers.reduce(function(trackerArr, tracker) {
+            return trackerArr.concat([{
+                tracked: tracker.tracked,
+                tracking: tracker.tracking ? tracker.trackingStart : false,
+                description: tracker.description
+            }]);
+        }, []))
+    );
+}
+
+/**
+ * restore trackers from local storage
+ * @return {void}
+ */
+function restoreTrackers() {
+    (JSON.parse(storage.getItem('trackers')) || []).forEach(function(data) {
+        addTracker(new Tracker(data.tracked, data.tracking, data.description));
+    });
 }
