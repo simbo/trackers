@@ -1,7 +1,12 @@
 'use strict';
 
-module.exports = Tracker;
-
+/**
+ * Tracker class
+ * @param {number} tracked     tracked milliseconds
+ * @param {mixed} tracking     false or timestamp from track start
+ * @param {string} description tracker description
+ * @return {Tracker} instance
+ */
 function Tracker(tracked, tracking, description) {
 
     var properties = {
@@ -83,10 +88,19 @@ function Tracker(tracked, tracking, description) {
 
 }
 
+/**
+ * get current utc timestamp in milliseconds
+ * @return {[type]} [description]
+ */
 Tracker.now = function() {
     return new Date().getTime();
 };
 
+/**
+ * get an object containing hours, minutes, seconds and milliseconds from a number representing milliseconds
+ * @param  {number} ms milliseconds
+ * @return {object}    plain object containing properties h, m, s and ms
+ */
 Tracker.msToDuration = function(ms) {
     return {
         h: Math.floor(ms / (1000 * 60 * 60)),
@@ -96,6 +110,11 @@ Tracker.msToDuration = function(ms) {
     };
 };
 
+/**
+ * get a number representing milliseconds from an object containing hours, minutes, seconds and/or milliseconds
+ * @param  {object} duration plain object containing properties h, m, s and/or ms
+ * @return {number}          milliseconds
+ */
 Tracker.durationToMs = function(duration) {
     var ms = 0;
     if (duration.h) ms += parseInt(duration.h, 10) * 60 * 60 * 1000;
@@ -104,3 +123,5 @@ Tracker.durationToMs = function(duration) {
     if (duration.ms) ms += parseInt(duration.ms, 10);
     return ms;
 };
+
+module.exports = Tracker;
