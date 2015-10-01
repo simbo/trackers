@@ -1,0 +1,29 @@
+.add-tracker
+    display: block
+    margin: 0 auto
+    width: 60px
+    height: @width
+    border-radius: 50%
+    font-size: @width
+    font-weight: 500
+
+    &::before
+        display: block
+        content: '+'
+
+
+.tracker
+
+    &-list
+        max-width: 600px
+        background: red
+
+    &-description
+        border: 0
+        overflow: hidden
+        padding: 0
+        outline: none
+        background-color: #D0D0D0
+        line-height: 1.4
+        resize: none
+        transition: height 1s

@@ -1,2 +1,58 @@
+*
+    margin: 0
+    padding: 0
+    border: 0
+    font-size: 100%
+    font: inherit
+    vertical-align: baseline
+    box-sizing: inherit
+
+    &::before,
+    &::after
+        box-sizing: inherit
+
+html
+    box-sizing: border-box
+
 body
-    improved-text-rendering()
+    line-height: 1
+    font-family: Roboto, sans-serif
+    font-weight: 300
+    text-rendering: optimizeLegibility
+    -webkit-font-smoothing: antialiased
+    -webkit-text-size-adjust: none
+    -moz-osx-font-smoothing: grayscale
+    -ms-text-size-adjust: none
+
+ul
+    list-style: none
+
+a
+    background-color: transparent
+
+    &:active,
+    &:hover
+        outline: 0
+
+strong
+    font-weight: 500
+
+small
+    font-size: 80%
+
+button
+    overflow: visible
+    text-transform: none
+    cursor: pointer
+    -webkit-appearance: none
+
+button::-moz-focus-inner,
+input::-moz-focus-inner
+    border: 0
+    padding: 0
+
+input
+    line-height: normal
+
+textarea
+    overflow: auto
