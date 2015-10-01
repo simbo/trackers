@@ -11,9 +11,10 @@ body
     button#add-tracker.add-tracker
     ul#tracker-list.tracker-list
     script(src="/assets/js/main.js")
-    script#tracker-template.tracker-template(type="text/html").
-        <li class="tracker<%= tracking ? ' is-tracking' : '' %>">
-            <textarea rows="1" cols="10" class="tracker-description" placeholder="Description…"><%= description %></textarea>
-            <input type="text" class="tracker-tracked" value="<%= trackedFormatted %>">
-            <button class="tracker-toggle"></button>
-        </li>
+    script#tracker-template.tracker-template(type="text/html")
+        :stripWhitespace
+            <li class="tracker<%= tracking ? ' is-tracking' : '' %>">
+                <textarea rows="1" cols="10" class="tracker-description" placeholder="Description…"><%= description %></textarea>
+                <input type="text" class="tracker-tracked" value="<%= trackedFormatted %>">
+                <button class="tracker-toggle"></button>
+            </li>
