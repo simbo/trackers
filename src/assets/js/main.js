@@ -1,13 +1,33 @@
 'use strict';
 
-var Tracker = require('./modules/tracker.js');
+var onDomReady = require('./modules/on-dom-ready.js'),
+    renderTemplate = require('./modules/render-template.js'),
+    textareaAutosize = require('./modules/textarea-autosize.js'),
+    Tracker = require('./modules/tracker.js');
 
-var tracker = new Tracker();
+var $trackerList,
+    trackerTemplate;
 
-tracker.start();
+onDomReady(function() {
 
-window.setTimeout(function() {
-    tracker.stop();
-    console.log(tracker.tracked);
-}, 1000);
+    $trackerList = document.getElementById('tracker-list');
+    trackerTemplate = document.getElementById('tracker-template').innerHTML;
 
+    document.getElementById('add-tracker').addEventListener('click', addTracker);
+
+});
+
+/**
+ * add a tracker to tracker list
+ * @param {tracker} tracker tracker instance
+ * @return {void}
+ */
+function addTracker(tracker) {
+    var $tracker,
+        $trackerDescription;
+    tracker = tracker instanceof Tracker ? tracker : new Tracker();
+    $tracker = renderTemplate(trackerTemplate, tracker);
+    $trackerList.appendChild($tracker);
+    $trackerDescription = $tracker.querySelectorAll('.tracker-description')[0];
+    textareaAutosize($trackerDescription);
+}
