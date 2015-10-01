@@ -21,8 +21,7 @@ module.exports = [
                 paths: [
                     path.join(this.paths.css, 'imports'),
                     path.join(this.paths.assets, 'img'),
-                    path.join(this.paths.cwd, 'node_modules'),
-                    path.join(this.paths.cwd, 'node_modules/collection.stylus/src/stylus/imports/')
+                    this.paths.node
                 ],
                 'include css': true,
                 url: {
