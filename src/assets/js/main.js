@@ -49,11 +49,11 @@ function addTracker(tracker) {
 function storeTrackers() {
     storage.setItem('trackers',
         JSON.stringify(trackers.reduce(function(trackerArr, tracker) {
-            return trackerArr.concat([{
-                tracked: tracker.tracked,
-                tracking: tracker.tracking ? tracker.trackingStart : false,
-                description: tracker.description
-            }]);
+            return trackerArr.concat([[
+                tracker.tracked,
+                tracker.tracking ? tracker.trackingStart : false,
+                tracker.description
+            ]]);
         }, []))
     );
 }
@@ -64,6 +64,7 @@ function storeTrackers() {
  */
 function restoreTrackers() {
     (JSON.parse(storage.getItem('trackers')) || []).forEach(function(data) {
-        addTracker(new Tracker(data.tracked, data.tracking, data.description));
+        data.unshift(null);
+        addTracker(new (Function.prototype.bind.apply(Tracker, data)));
     });
 }
