@@ -32,6 +32,7 @@ function TrackerCollection($list, template) {
     this.add = function(tracker, store) {
         var $tracker,
             $trackerDescription,
+            $trackerTracked,
             that = this,
             trackerID = trackers.length;
         store = typeof store === 'boolean' ? store : true;
@@ -39,10 +40,23 @@ function TrackerCollection($list, template) {
         $tracker = renderTemplate(template, tracker);
         $list.insertBefore($tracker, $list.firstChild);
         $trackerDescription = $tracker.querySelectorAll('.tracker-description')[0];
+        $trackerTracked = $tracker.querySelectorAll('.tracker-tracked')[0];
         textareaAutosize($trackerDescription);
         onValueUpdate($trackerDescription, function() {
             tracker.description = this.value;
             that.store();
+        });
+        onValueUpdate($trackerTracked, function() {
+            var tracked = this.value.replace(/[^0-9:]/g, '')
+                    .split(':').reduce(function(tracked, slice) {
+                        slice = parseInt(slice, 10);
+                        return tracked.concat(!isNaN(slice) && typeof slice === 'number' ? [slice] : []);
+                    }, []);
+            tracker.tracked = tracked;
+            that.store();
+        });
+        $trackerTracked.addEventListener('blur', function() {
+            this.value = tracker.trackedFormatted;
         });
         if (store) this.store();
     };
