@@ -1,5 +1,7 @@
 'use strict';
 
+var onValueUpdate = require('./on-value-update.js');
+
 /**
  * adds auto-sizing event handlers to a textarea
  * @param  {node} textarea dom node
@@ -16,19 +18,7 @@ function textareaAutosize(textarea) {
         textarea.style.height = textarea.scrollHeight + 'px';
     }
 
-    /**
-     * delayed resize to get the already changed text
-     * @return {void}
-     */
-    function delayedResize() {
-        window.setTimeout(resize, 0);
-    }
-
-    textarea.addEventListener('change', resize);
-    textarea.addEventListener('cut', delayedResize);
-    textarea.addEventListener('paste', delayedResize);
-    textarea.addEventListener('drop', delayedResize);
-    textarea.addEventListener('keydown', delayedResize);
+    onValueUpdate(textarea, resize);
 
     resize();
 
