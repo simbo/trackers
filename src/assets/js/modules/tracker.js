@@ -37,6 +37,18 @@ function Tracker(tracked, tracking, description) {
             }
         },
 
+        trackedFormatted: {
+            get: function() {
+                var tracked = Tracker.msToDuration(properties.tracked);
+                return Object.keys(tracked).reduce(function(trackedFormatted, prop) {
+                    return trackedFormatted.concat([('0' + tracked[prop]).slice(-2)]);
+                }, []).slice(0, 3).join(':');
+            },
+            set: function() {
+                return;
+            }
+        },
+
         tracking: {
             get: function() {
                 return properties.tracking !== false;
