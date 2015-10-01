@@ -71,7 +71,7 @@ function Tracker(tracked, tracking, description) {
 
         description: {
             get: function() {
-                return properties.tracked;
+                return properties.description;
             },
             set: function(description) {
                 if (typeof description === 'string' && (description = description.trim()).length > 0) {
