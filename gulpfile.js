@@ -29,6 +29,7 @@ plug.util.log('Environment: ' + plug.util.colors.yellow(plug.env));
 // paths
 plug.paths = (function(paths) {
     paths.cwd = process.cwd();
+    paths.node = path.join(paths.cwd, 'node_modules');
     paths.src = path.join(paths.cwd, 'src');
     paths.dest = path.join(paths.cwd, 'www');
     paths.assets = path.join(paths.src, 'assets');

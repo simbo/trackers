@@ -1,9 +1,9 @@
 'use strict';
 
-var onDomReady = require('./modules/on-dom-ready.js'),
-    renderTemplate = require('./modules/render-template.js'),
-    textareaAutosize = require('./modules/textarea-autosize.js'),
-    Tracker = require('./modules/tracker.js');
+var onDomReady = require('modules/on-dom-ready'),
+    renderTemplate = require('modules/render-template'),
+    textareaAutosize = require('modules/textarea-autosize'),
+    Tracker = require('modules/tracker');
 
 var $trackerList,
     storage = window.localStorage || {},

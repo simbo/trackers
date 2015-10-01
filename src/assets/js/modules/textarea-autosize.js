@@ -1,6 +1,6 @@
 'use strict';
 
-var onValueUpdate = require('./on-value-update.js');
+var onValueUpdate = require('modules/on-value-update');
 
 /**
  * adds auto-sizing event handlers to a textarea

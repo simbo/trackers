@@ -22,6 +22,10 @@ module.exports = [
                 return browserify({
                     entries: [file],
                     insertGlobals: false,
+                    paths: [
+                        this.paths.js,
+                        this.paths.node
+                    ],
                     debug: true,
                     transform: []
                 })
