@@ -11,12 +11,12 @@ var onValueUpdate = require('functions/on-value-update'),
  * @param {string} template tracker template string
  * @return {void}
  */
-function TrackerCollection($list, template) {
+function TrackerCollection(list, template) {
 
     var storage = window.localStorage || {},
         trackers = [];
 
-    if (!($list instanceof HTMLUListElement)) throw new Error('invalid list');
+    if (!(list instanceof HTMLUListElement)) throw new Error('invalid list');
     if (typeof template !== 'string') throw new Error('invalid template');
 
     if (!window.localStorage) {
@@ -30,33 +30,17 @@ function TrackerCollection($list, template) {
      * @return {void}
      */
     this.add = function(tracker, store) {
-        var $tracker,
-            $trackerDescription,
-            $trackerTracked,
-            that = this,
+        var container,
             trackerID = trackers.length;
         store = typeof store === 'boolean' ? store : true;
         tracker = trackers[trackerID] = tracker instanceof Tracker ? tracker : new Tracker();
-        $tracker = renderTemplate(template, tracker);
-        $list.insertBefore($tracker, $list.firstChild);
-        $trackerDescription = $tracker.querySelectorAll('.tracker-description')[0];
-        $trackerTracked = $tracker.querySelectorAll('.tracker-tracked')[0];
-        textareaAutosize($trackerDescription);
-        onValueUpdate($trackerDescription, function() {
-            tracker.description = this.value;
-            that.store();
-        });
-        onValueUpdate($trackerTracked, function() {
-            var tracked = this.value.replace(/[^0-9:]/g, '')
-                    .split(':').reduce(function(tracked, slice) {
-                        slice = parseInt(slice, 10);
-                        return tracked.concat(!isNaN(slice) && typeof slice === 'number' ? [slice] : []);
-                    }, []);
-            tracker.tracked = tracked;
-            that.store();
-        });
-        $trackerTracked.addEventListener('blur', function() {
-            this.value = tracker.trackedFormatted;
+        container = renderTemplate(template, tracker);
+        list.insertBefore(container, list.firstChild);
+        this.addTrackerEvents(tracker, {
+            container: container,
+            tracked: container.querySelectorAll('.tracker-tracked')[0],
+            description: container.querySelectorAll('.tracker-description')[0],
+            toggle: container.querySelectorAll('.tracker-toggle')[0]
         });
         if (store) this.store();
     };
@@ -89,5 +73,33 @@ function TrackerCollection($list, template) {
     };
 
 }
+
+/**
+ * add events to a tracker node
+ * @param {Tracker} tracker tracker instance
+ * @param {object}  $       plain object containing dom nodes
+ * @return {void}
+ */
+TrackerCollection.prototype.addTrackerEvents = function(tracker, $) {
+    textareaAutosize($.description);
+    onValueUpdate($.description, function(event) {
+        var element = event.srcElement || event.target;
+        tracker.description = element.value;
+        this.store();
+    }.bind(this));
+    onValueUpdate($.tracked, function(event) {
+        var element = event.srcElement || event.target;
+        tracker.tracked = element.value.replace(/[^0-9:]/g, '')
+            .split(':').reduce(function(tracked, slice) {
+                slice = parseInt(slice, 10);
+                return tracked.concat(!isNaN(slice) && typeof slice === 'number' ? [slice] : []);
+            }, []);
+        this.store();
+    }.bind(this));
+    $.tracked.addEventListener('blur', function(event) {
+        var element = event.srcElement || event.target;
+        element.value = tracker.trackedFormatted;
+    });
+};
 
 module.exports = TrackerCollection;
