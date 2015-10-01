@@ -16,6 +16,9 @@ function TrackerCollection($list, template) {
     var storage = window.localStorage || {},
         trackers = [];
 
+    if (!($list instanceof HTMLUListElement)) throw new Error('invalid list');
+    if (typeof template !== 'string') throw new Error('invalid template');
+
     if (!window.localStorage) {
         throw new Error('localStorage not available');
     }
