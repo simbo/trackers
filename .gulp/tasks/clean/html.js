@@ -4,7 +4,7 @@ var del = require('del');
 
 module.exports = [
 
-    'delete generated stylesheets',
+    'delete generated html',
 
     function(done) {
         del(
