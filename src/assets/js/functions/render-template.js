@@ -11,8 +11,8 @@ var cache = {};
  * inspired by john resig's micro templating:
  * http://ejohn.org/blog/javascript-micro-templating/
  *
- * @param  {string} str  template string
- * @param  {object} data template data object
+ * @param  {string} str     template string
+ * @param  {object} data    template data object
  * @return {HTMLCollection} rendered template
  */
 function renderTemplate(str, data) {

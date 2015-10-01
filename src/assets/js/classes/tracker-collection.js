@@ -7,7 +7,7 @@ var onValueUpdate = require('functions/on-value-update'),
 
 /**
  * TrackerCollection class
- * @param {node} $list      tracker container
+ * @param {node}   list     tracker container
  * @param {string} template tracker template string
  * @return {void}
  */
@@ -26,7 +26,7 @@ function TrackerCollection($list, template) {
     /**
      * add a tracker to tracker list
      * @param {tracker} tracker tracker instance
-     * @param {boolean} store whether to store the tracker collection after adding or not
+     * @param {boolean} store   whether to store the tracker collection after adding or not
      * @return {void}
      */
     this.add = function(tracker, store) {

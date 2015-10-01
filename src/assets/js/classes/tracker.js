@@ -3,7 +3,7 @@
 /**
  * Tracker class
  * @param {number} tracked     tracked milliseconds
- * @param {mixed} tracking     false or timestamp from track start
+ * @param {mixed}  tracking    false or timestamp from track start
  * @param {string} description tracker description
  * @return {Tracker} instance
  */
