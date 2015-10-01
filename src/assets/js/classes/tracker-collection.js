@@ -26,13 +26,15 @@ function TrackerCollection($list, template) {
     /**
      * add a tracker to tracker list
      * @param {tracker} tracker tracker instance
+     * @param {boolean} store whether to store the tracker collection after adding or not
      * @return {void}
      */
-    this.add = function(tracker) {
+    this.add = function(tracker, store) {
         var $tracker,
             $trackerDescription,
             that = this,
             trackerID = trackers.length;
+        store = typeof store === 'boolean' ? store : true;
         tracker = trackers[trackerID] = tracker instanceof Tracker ? tracker : new Tracker();
         $tracker = renderTemplate(template, tracker);
         $list.insertBefore($tracker, $list.firstChild);
@@ -42,7 +44,7 @@ function TrackerCollection($list, template) {
             tracker.description = this.value;
             that.store();
         });
-        this.store();
+        if (store) this.store();
     };
 
     /**
@@ -68,7 +70,7 @@ function TrackerCollection($list, template) {
     this.restore = function() {
         (JSON.parse(storage.getItem('trackers')) || []).forEach(function(data) {
             data.unshift(null);
-            this.add(new (Function.prototype.bind.apply(Tracker, data)));
+            this.add(new (Function.prototype.bind.apply(Tracker, data)), false);
         }.bind(this));
     };
 
