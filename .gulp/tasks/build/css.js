@@ -29,7 +29,7 @@ module.exports = [
                     name: 'inline-url',
                     limit: false
                 }
-            }))
+            }).on('error', this.log.error))
 
             .pipe(this.plugins.postcss([
                 autoprefixer({
