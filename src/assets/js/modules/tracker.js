@@ -60,6 +60,15 @@ function Tracker(tracked, tracking, description) {
             }
         },
 
+        trackingStart: {
+            get: function() {
+                return properties.tracking;
+            },
+            set: function() {
+                return;
+            }
+        },
+
         description: {
             get: function() {
                 return properties.tracked;
