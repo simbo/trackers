@@ -140,5 +140,27 @@
         overflow: hidden
         resize: none
 
+    &-toggle.trackers-button
+
+        .trackers-merge-mode &,
+        .trackers-delete-mode &
+            display: none
+
     &-remove.trackers-button
         display: none
+
+        &:hover,
+        &:focus
+
+            line,
+            circle
+                stroke: colors.danger
+
+        .trackers-delete-mode &
+            display: block
+
+    &-merge.trackers-button
+        display: none
+
+        .trackers-merge-mode &
+            display: block
