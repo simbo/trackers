@@ -1,7 +1,7 @@
 {
   "name": "trackers",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.2.0",
+  "description": "Simple time trackers.",
   "main": "gulpfile.js",
   "scripts": {
     "test": "npm run build",
@@ -21,6 +21,7 @@
     "url": "https://github.com/simbo/trackers/issues"
   },
   "homepage": "https://github.com/simbo/trackers#readme",
+  "private": true,
   "devDependencies": {
     "arrayify": "1.0.0",
     "autoprefixer": "6.0.3",
