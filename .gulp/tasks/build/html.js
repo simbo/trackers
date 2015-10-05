@@ -18,9 +18,8 @@ module.exports = [
         this.gulp
             .src(path.join(this.paths.src, '**/*.jade'))
             .pipe(this.plugins.jade({
-                jade: jade,
-                pretty: this.env !== 'production'
             }))
+                jade: jade
             .pipe(this.gulp.dest(this.paths.dest));
 
     }
