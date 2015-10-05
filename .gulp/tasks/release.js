@@ -19,13 +19,7 @@ module.exports = [
 
         this.util.log(this.util.colors.yellow('Current git status:'));
 
-        spawn('git',
-            [
-                'status',
-                '--porcelain'
-            ],
-            processOptions
-        ).on('close', function(code) {
+        spawn('git', ['status'], processOptions).on('close', function(code) {
 
             if (code !== 0) return done();
 
