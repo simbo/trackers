@@ -77,11 +77,13 @@ function TrackerCollection($, template) {
             id: trackerID
         });
         $.list.insertBefore(container, $.list.firstChild);
-        this.addTrackerEvents(tracker, {
+        this.addTrackerEvents(tracker, trackerID, {
             container: container,
             tracked: container.querySelector('.tracker-tracked'),
             description: container.querySelector('.tracker-description'),
-            toggle: container.querySelector('.tracker-toggle')
+            toggle: container.querySelector('.tracker-toggle'),
+            merge: container.querySelector('.tracker-merge'),
+            remove: container.querySelector('.tracker-remove')
         });
         if (store) this.store();
         return this;
@@ -177,11 +179,12 @@ TrackerCollection.prototype.toggleDeleteMode = function() {
 
 /**
  * add events
- * @param {Tracker} tracker tracker instance
- * @param {object}  $       plain object containing dom nodes
+ * @param {Tracker} tracker   tracker instance
+ * @param {number}  trackerID plain object containing dom nodes
+ * @param {object}  $         plain object containing dom nodes
  * @return {void}
  */
-TrackerCollection.prototype.addTrackerEvents = function(tracker, $) {
+TrackerCollection.prototype.addTrackerEvents = function(tracker, trackerID, $) {
 
     var trackerInterval;
 
@@ -205,6 +208,14 @@ TrackerCollection.prototype.addTrackerEvents = function(tracker, $) {
         tracker.toggle();
         this.store();
     }.bind(this));
+
+    $.remove.addEventListener('click', function() {
+        this.remove(trackerID);
+    }.bind(this));
+
+    $.merge.addEventListener('click', function() {
+        $.container.className += ' tracker-merge-select';
+    });
 
     tracker.on('start', function() {
         Object.keys(this.trackers).forEach(function(trackerID) {
