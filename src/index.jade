@@ -26,6 +26,7 @@ body
             li.trackers-button-list_item
                 button#trackers-button--delete.trackers-button(title="toggle delete mode")
                     include assets/svg/clock-minus.jade
+        ul#trackers-list.trackers-list
         .trackers-dialog--remove
             .trackers-dialog_col
                 button#trackers-button--rem-all.trackers-textbutton remove all
@@ -36,18 +37,17 @@ body
                 button#trackers-button--merge-sel.trackers-textbutton merge selected
             .trackers-dialog_col
                 button#trackers-button--cancel-merge.trackers-textbutton cancel
-        ul#trackers-list.trackers-list
-        script#tracker-template(type="text/html")
-            li.tracker(id="tracker-{%= id %}", class="tracker--{%= tracking ? '' : 'not-' %}tracking")
-                .tracker-row
-                    textarea.tracker-description(rows="1", cols="10", placeholder="Description…") {%= description %}
-                    input.tracker-tracked(type="text", value="{%= tracked %}")
-                    button.trackers-button.tracker-toggle
-                        include assets/svg/clock-running.jade
-                    button.trackers-button.tracker-remove
-                        include assets/svg/clock-cross.jade
-                    button.trackers-button.tracker-merge
-                        include assets/svg/clock-select.jade
     a.trackers-github.trackers-button(href="https://github.com/simbo/trackers/")
         include assets/svg/github.jade
+    script#tracker-template(type="text/html")
+        li.tracker(id="tracker-{%= id %}", class="tracker--{%= tracking ? '' : 'not-' %}tracking")
+            .tracker-row
+                textarea.tracker-description(rows="1", cols="10", placeholder="Description…") {%= description %}
+                input.tracker-tracked(type="text", value="{%= tracked %}")
+                button.trackers-button.tracker-toggle
+                    include assets/svg/clock-running.jade
+                button.trackers-button.tracker-remove
+                    include assets/svg/clock-cross.jade
+                button.trackers-button.tracker-merge
+                    include assets/svg/clock-select.jade
     script(src="assets/js/main.#{versionSlug}.js")
