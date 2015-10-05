@@ -10,13 +10,6 @@ module.exports = [
 
     function() {
 
-        jade.filters.stripWhitespace = function(str) {
-            return this.env !== 'production' ?
-                str : str.split(/[\n\r]/).reduce(function(lines, line) {
-                    line = line.trim();
-                    return lines.concat(line.length > 0 ? [line] : []);
-                }, []).join(' ');
-        }.bind(this);
 
         this.gulp
             .src(path.join(this.paths.src, '**/*.jade'))
