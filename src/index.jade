@@ -26,6 +26,16 @@ body
             li.trackers-button-list_item
                 button#trackers-button--delete.trackers-button(title="toggle delete mode")
                     include assets/svg/clock-minus.jade
+        .trackers-dialog--remove
+            .trackers-dialog_col
+                button#trackers-button--rem-all.trackers-textbutton remove all
+            .trackers-dialog_col
+                button#trackers-button--cancel-del.trackers-textbutton cancel
+        .trackers-dialog--merge
+            .trackers-dialog_col
+                button#trackers-button--merge-sel.trackers-textbutton merge selected
+            .trackers-dialog_col
+                button#trackers-button--cancel-merge.trackers-textbutton cancel
         ul#trackers-list.trackers-list
         script#tracker-template(type="text/html")
             li.tracker(id="tracker-{%= id %}", class="tracker--{%= tracking ? '' : 'not-' %}tracking")

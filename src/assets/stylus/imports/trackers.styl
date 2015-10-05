@@ -10,12 +10,12 @@
         max-width: 480px
         margin: 0 auto
         text-align: center
-        padding: (tracker.button.size / 2) 0
+        padding: tracker.ui-margin 0
 
     &-button-list
         @extends $clearfix
         display: inline-block
-        padding-bottom: (tracker.button.size / 2)
+        padding-bottom: tracker.ui-margin
 
         &_item
             float: left
@@ -25,19 +25,39 @@
             & + &
                 border-left: 1px solid darken(colors.background, 25%)
 
-    &-button
-        width: tracker.button.size
-        height: @width
-        line-height: @width
+    &-button,
+    &-textbutton
+        height: tracker.button.size
+        line-height: height
         background: transparent
         text-align: center
         vertical-align: middle
+
+
+    &-button
+        width: tracker.button.size
 
         &::before
             content: ''
             display: inline-block
             height: 100%
             vertical-align: middle
+
+    &-textbutton
+        width: auto
+        padding: 0 .4em
+        color: colors.foreground
+        text-transform: uppercase
+        letter-spacing: .1em
+        font-weight: font.weight.strong
+
+        &:hover,
+        &:focus
+            color: colors.highlight
+
+            #trackers-button--rem-all&,
+            #trackers-button--merge-sel&
+                color: colors.danger
 
     &-icon
         display: inline-block
@@ -78,6 +98,23 @@
 
             &_seconds
                 animation-duration: (1s)
+
+    &-dialog
+
+        &--remove,
+        &--merge
+            @extends $clearfix
+            display: none
+
+        .trackers-merge-mode &--merge,
+        .trackers-delete-mode &--remove
+            display: block
+
+        &_col
+            width: 50%
+            float: left
+            padding-bottom: tracker.ui-margin
+
 
     &-github
         position: absolute
