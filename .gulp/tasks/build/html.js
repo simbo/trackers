@@ -2,7 +2,8 @@
 
 var path = require('path');
 
-var jade = require('jade');
+var jade = require('jade'),
+    uglify = require('uglify-js');
 
 module.exports = [
 
@@ -10,6 +11,9 @@ module.exports = [
 
     function() {
 
+        jade.filters.uglify = function(data) {
+            return uglify.minify(data, {fromString: true}).code;
+        };
 
         this.gulp
             .src(path.join(this.paths.src, '**/*.jade'))
