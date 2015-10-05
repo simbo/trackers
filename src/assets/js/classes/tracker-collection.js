@@ -231,6 +231,7 @@ TrackerCollection.prototype.addTrackerEvents = function(tracker, $) {
      */
     function setTrackerClass() {
         $.container.className = $.container.className.replace(/(^|\ )tracker--(not-)?tracking(\ |$)/ig, '$3');
+        $.container.className += ' tracker--' + (tracker.tracking ? '' : 'not-') + 'tracking';
     }
 
     /**
