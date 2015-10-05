@@ -10,13 +10,16 @@ function onValueUpdate(input, fn) {
 
     /**
      * delayed event to get the already changed text
+     * @param {event} event event object
      * @return {void}
      */
-    function delayedFn() {
-        window.setTimeout(fn.bind(input), 0);
+    function delayedFn(event) {
+        window.setTimeout(function() {
+            fn(event);
+        }, 0);
     }
 
-    input.addEventListener('change', fn.bind(input));
+    input.addEventListener('change', fn);
     input.addEventListener('cut', delayedFn);
     input.addEventListener('paste', delayedFn);
     input.addEventListener('drop', delayedFn);
