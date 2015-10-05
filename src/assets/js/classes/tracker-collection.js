@@ -177,6 +177,10 @@ TrackerCollection.prototype.removeAll = function() {
     return this;
 };
 
+TrackerCollection.prototype.mergeSelected = function() {
+    return this;
+};
+
 TrackerCollection.prototype.toggleMergeMode = function() {
     if (this.mergeMode) this.disableMergeMode();
     else this.enableMergeMode();
