@@ -16,7 +16,7 @@ var plugOptions = {
 var plug = new gulpplug.Plug(gulp, plugOptions);
 
 // log messages
-plug.log = require('./.gulp/log-messages.js');
+plug.log = require('./.gulp/log-messages.js')(plug);
 
 // environment
 plug.env = ['development', 'production']
