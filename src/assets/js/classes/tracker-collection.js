@@ -20,9 +20,6 @@ function TrackerCollection($, template) {
 
     if (!($.wrap instanceof HTMLDivElement)) throw new Error('invalid container');
     if (!($.list instanceof HTMLUListElement)) throw new Error('invalid list');
-    if (!($.add instanceof HTMLButtonElement)) throw new Error('invalid button');
-    if (!($.merge instanceof HTMLButtonElement)) throw new Error('invalid button');
-    if (!($.delete instanceof HTMLButtonElement)) throw new Error('invalid button');
     if (typeof template !== 'string') throw new Error('invalid template');
 
     if (!storage) {
@@ -117,23 +114,12 @@ function TrackerCollection($, template) {
         $.wrap.className = $.wrap.className.replace(/(^|\ )trackers-delete-mode(\ |$)/ig, '$2');
     };
 
-    // add event handler to add-tracker button
-    $.add.addEventListener('click', function() {
+    this.new = function() {
         var trackerID = nextTrackerID;
         this.add();
         trackers[trackerID].start();
         document.getElementById('tracker-' + trackerID).querySelector('.tracker-description').focus();
-    }.bind(this));
-
-    // add event handler to toggle-merge button
-    $.merge.addEventListener('click', function() {
-        this.toggleMergeMode();
-    }.bind(this));
-
-    // add event handler to toggle-delete button
-    $.delete.addEventListener('click', function() {
-        this.toggleDeleteMode();
-    }.bind(this));
+    }.bind(this);
 
 }
 
