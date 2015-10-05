@@ -147,6 +147,7 @@ TrackerCollection.prototype.store = function() {
     } catch (err) {
         throw new Error('could not store trackers');
     }
+    return this;
 };
 
 /**
@@ -165,16 +166,19 @@ TrackerCollection.prototype.restore = function() {
     } catch (err) {
         throw new Error('could not restore trackers');
     }
+    return this;
 };
 
 TrackerCollection.prototype.toggleMergeMode = function() {
     if (this.mergeMode) this.disableMergeMode();
     else this.enableMergeMode();
+    return this;
 };
 
 TrackerCollection.prototype.toggleDeleteMode = function() {
     if (this.deleteMode) this.disableDeleteMode();
     else this.enableDeleteMode();
+    return this;
 };
 
 /**
@@ -272,6 +276,8 @@ TrackerCollection.prototype.addTrackerEvents = function(tracker, trackerID, $) {
         $.description.style.height = 'auto';
         $.description.style.height = $.description.scrollHeight + 'px';
     }
+
+    return this;
 
 };
 
