@@ -6,7 +6,14 @@ html(lang="en")
         meta(name="description", content="Simple time trackers.")
         meta(name="viewport", content="width=device-width, initial-scale=1")
         link(href="/assets/css/main.css", rel="stylesheet")
-        link(href="//fonts.googleapis.com/css?family=Roboto:300,300italic,500,500italic", rel="stylesheet")
+        script
+            :uglify-js
+                (function(link) {
+                    link.setAttribute("href","//fonts.googleapis.com/css?family=Roboto:400,700");
+                    link.setAttribute("rel", "stylesheet");
+                    link.setAttribute("type","text/css");
+                    document.getElementsByTagName('head')[0].appendChild(link);
+                })(document.createElement('link'));
 body
     button#add-tracker.add-tracker
     ul#tracker-list.tracker-list
