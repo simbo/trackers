@@ -32,6 +32,7 @@ module.exports = [
                     .bundle().on('error', this.log.error)
                     .pipe(vinylSource(path.relative(this.paths.js, file)))
                     .pipe(vinylBuffer())
+                    .pipe(this.plugins.extReplace('.' + this.versionSlug + '.js', '.js'))
                     .pipe(this.plugins.sourcemaps.init({
                         loadMaps: true
                     }))

@@ -7,6 +7,9 @@ var path = require('path');
 var gulp = require('gulp'),
     gulpplug = require('gulpplug');
 
+// data from package.json
+var pkgJson = require('./package.json');
+
 // gulpplug options
 var plugOptions = {
     tasksDir: '.gulp/tasks'
@@ -22,6 +25,9 @@ plug.log = require('./.gulp/log-messages.js')(plug);
 plug.env = ['development', 'production']
     .indexOf(process.env.NODE_ENV) !== -1 ?
         process.env.NODE_ENV : 'development';
+
+plug.version = pkgJson.version;
+plug.versionSlug = pkgJson.version.replace(/\./g, '-');
 
 // display env
 plug.util.log('Environment: ' + plug.util.colors.yellow(plug.env));

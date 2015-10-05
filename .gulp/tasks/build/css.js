@@ -30,6 +30,8 @@ module.exports = [
                 }
             }).on('error', this.log.error))
 
+            .pipe(this.plugins.extReplace('.' + this.versionSlug + '.css', '.css'))
+
             .pipe(this.plugins.postcss([
                 autoprefixer({
                     browsers: ['> 0.01%']

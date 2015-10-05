@@ -21,7 +21,11 @@ module.exports = [
                 '!' + path.join(this.paths.assets, 'svg/**/*.jade')
             ])
             .pipe(this.plugins.jade({
-                jade: jade
+                jade: jade,
+                locals: {
+                    version: this.version,
+                    versionSlug: this.versionSlug
+                }
             }).on('error', this.log.error))
             .pipe(this.gulp.dest(this.paths.dest));
 
