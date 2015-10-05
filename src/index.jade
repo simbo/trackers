@@ -15,13 +15,27 @@ html(lang="en")
                     document.getElementsByTagName('head')[0].appendChild(link);
                 })(document.createElement('link'));
 body
-    button#add-tracker.add-tracker
-    ul#tracker-list.tracker-list
+    #trackers-wrap.trackers-wrap
+        ul.trackers-button-list
+            li.trackers-button-list_item
+                button#trackers-button--add.trackers-button(title="add a new tracker")
+                    include assets/svg/clock-plus.jade
+            li.trackers-button-list_item
+                button#trackers-button--merge.trackers-button(title="toggle merge mode")
+                    include assets/svg/clock-merge.jade
+            li.trackers-button-list_item
+                button#trackers-button--delete.trackers-button(title="toggle delete mode")
+                    include assets/svg/clock-minus.jade
+        ul#trackers-list.trackers-list
+        script#tracker-template(type="text/html")
+            li.tracker(id="tracker-{%= id %}", class="tracker--{%= tracking ? '' : 'not-' %}tracking")
+                .tracker-row
+                    textarea.tracker-description(rows="1", cols="10", placeholder="Description…") {%= description %}
+                    input.tracker-tracked(type="text", value="{%= tracked %}")
+                    button.trackers-button.tracker-toggle
+                        include assets/svg/clock-running.jade
+                    button.trackers-button.tracker-remove
+                        include assets/svg/clock-cross.jade
+    a.trackers-github.trackers-button(href="https://github.com/simbo/trackers/")
+        include assets/svg/github.jade
     script(src="/assets/js/main.js")
-    script#tracker-template.tracker-template(type="text/html")
-        :stripWhitespace
-            <li class="tracker<%= tracking ? ' is-tracking' : '' %>">
-                <textarea rows="1" cols="10" class="tracker-description" placeholder="Description…"><%= description %></textarea>
-                <input type="text" class="tracker-tracked" value="<%= trackedFormatted %>">
-                <button class="tracker-toggle"></button>
-            </li>

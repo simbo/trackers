@@ -7,13 +7,19 @@ var trackers;
 
 onDomReady(function() {
 
+    // initiate trackers
     trackers = new TrackerCollection(
-        document.getElementById('tracker-list'),
+        {
+            wrap: document.getElementById('trackers-wrap'),
+            list: document.getElementById('trackers-list'),
+            add: document.getElementById('trackers-button--add'),
+            merge: document.getElementById('trackers-button--merge'),
+            delete: document.getElementById('trackers-button--delete')
+        },
         document.getElementById('tracker-template').innerHTML
     );
 
-    document.getElementById('add-tracker').addEventListener('click', trackers.add);
-
+    // restore trackers from local storage
     trackers.restore();
 
 });
