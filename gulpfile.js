@@ -26,6 +26,7 @@ plug.env = ['development', 'production']
     .indexOf(process.env.NODE_ENV) !== -1 ?
         process.env.NODE_ENV : 'development';
 
+// version info
 plug.version = pkgJson.version;
 plug.versionSlug = pkgJson.version.replace(/\./g, '-');
 
