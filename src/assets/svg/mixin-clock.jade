@@ -1,0 +1,8 @@
+mixin clock(name)
+    - if (typeof name === 'undefined')
+        - var name = 'clock'
+    svg.trackers-icon(class="trackers-icon--#{name}", width="72", height="74", viewBox="0 0 72 74")
+        circle(cx="36", cy="40", r="30", stroke="#000", fill="transparent", stroke-width="6")
+        line(x1="3", y1="16", x2="18", y2="3", stroke="#000", stroke-width="6")
+        line(x1="54", y1="3", x2="69", y2="16", stroke="#000", stroke-width="6")
+        block
