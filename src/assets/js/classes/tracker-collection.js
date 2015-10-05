@@ -169,6 +169,14 @@ TrackerCollection.prototype.restore = function() {
     return this;
 };
 
+TrackerCollection.prototype.removeAll = function() {
+    Object.keys(this.trackers).forEach(function(trackerID) {
+        this.remove(trackerID, false);
+    }.bind(this));
+    this.store();
+    return this;
+};
+
 TrackerCollection.prototype.toggleMergeMode = function() {
     if (this.mergeMode) this.disableMergeMode();
     else this.enableMergeMode();
