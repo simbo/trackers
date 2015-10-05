@@ -32,12 +32,7 @@ module.exports = [
 
             .pipe(this.plugins.postcss([
                 autoprefixer({
-                    browsers: [
-                        'last 2 versions',
-                        '> 2%',
-                        'Opera 11.1',
-                        'Firefox ESR'
-                    ]
+                    browsers: ['> 0.01%']
                 }),
                 mqpacker
             ].concat(this.env === 'production' ?
