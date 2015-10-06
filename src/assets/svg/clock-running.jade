@@ -1,5 +1,9 @@
 include mixin-clock.jade
 
 +clock('running')
-    line.trackers-icon--clock_minutes(x1="36", y1="40", x2="36", y2="20", stroke="#000", stroke-width="5", stroke-linecap="round")
-    line.trackers-icon--clock_seconds(x1="36", y1="40", x2="36", y2="10", stroke="#000", stroke-width="3", stroke-linecap="round")
+    //- group containers to fix firefox svg transform-origin
+    g.trackers-icon--clock_fix
+        g.trackers-icon--clock_animate-minutes
+            line.trackers-icon--clock_minutes(x1="36", y1="40", x2="36", y2="20", stroke="#000", stroke-width="5", stroke-linecap="round")
+        g.trackers-icon--clock_animate-seconds
+            line.trackers-icon--clock_seconds(x1="36", y1="40", x2="36", y2="10", stroke="#000", stroke-width="3", stroke-linecap="round")

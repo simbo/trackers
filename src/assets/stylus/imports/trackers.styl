@@ -92,16 +92,23 @@
 
         &--clock
 
-            &_minutes,
-            &_seconds
+            &_fix
+                transform: translate(36px, 37px)
+
+            &_animate-minutes
+            &_animate-seconds
                 transform-origin: 50% 100%
                 animation: clock 60s infinite linear
 
                 .tracker--not-tracking &
                     animation-play-state: paused
 
-            &_seconds
+            &_animate-seconds
                 animation-duration: (1s)
+
+            &_minutes,
+            &_seconds
+                transform: translate(-36px, -37px)
 
     &-dialog
 
