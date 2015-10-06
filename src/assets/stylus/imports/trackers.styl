@@ -79,6 +79,10 @@
             .trackers-button:hover &
                 stroke: colors.highlight
 
+            .trackers-merge-mode .trackers-button.trackers-button--merge &,
+            .trackers-delete-mode .trackers-button.trackers-button--delete &
+                stroke: colors.danger
+
         path
             fill: colors.foreground
 
@@ -128,6 +132,11 @@
     position: relative
     vertical-align: top
     background: colors.background
+    border: 2px solid transparent
+
+    .trackers-merge-mode &,
+    .trackers-delete-mode &
+        border-color: colors.danger
 
     & + &
         margin-top: 1px

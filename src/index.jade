@@ -18,13 +18,13 @@ body
     #trackers-wrap.trackers-wrap
         ul.trackers-button-list
             li.trackers-button-list_item
-                button#trackers-button--add.trackers-button(title="add a new tracker")
+                button#trackers-button--add.trackers-button.trackers-button--add(title="add a new tracker")
                     include assets/svg/clock-plus.jade
             li.trackers-button-list_item
-                button#trackers-button--merge.trackers-button(title="toggle merge mode")
+                button#trackers-button--merge.trackers-button.trackers-button--merge(title="toggle merge mode")
                     include assets/svg/clock-merge.jade
             li.trackers-button-list_item
-                button#trackers-button--delete.trackers-button(title="toggle delete mode")
+                button#trackers-button--delete.trackers-button.trackers-button--delete(title="toggle delete mode")
                     include assets/svg/clock-minus.jade
         ul#trackers-list.trackers-list
         .trackers-dialog--remove
@@ -37,8 +37,10 @@ body
                 button#trackers-button--merge-sel.trackers-textbutton merge selected
             .trackers-dialog_col
                 button#trackers-button--cancel-merge.trackers-textbutton cancel
-    a.trackers-github.trackers-button(href="https://github.com/simbo/trackers/")
-        include assets/svg/github.jade
+    .trackers-metainfo
+        p.trackers-version v#{version}
+        a.trackers-github.trackers-button(href="https://github.com/simbo/trackers/")
+            include assets/svg/github.jade
     script#tracker-template(type="text/html")
         li.tracker(id="tracker-{%= id %}", class="tracker--{%= tracking ? '' : 'not-' %}tracking")
             .tracker-row
