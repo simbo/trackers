@@ -23,18 +23,18 @@ onDomReady(function() {
     [
         ['trackers-button--add', trackers.new],
         ['trackers-button--rem-all', trackers.removeAll],
-        ['trackers-button--merge-sel', trackers.mergeSelected],
         ['trackers-button--delete', function() {
             trackers.deleteMode = !trackers.deleteMode;
         }],
-        ['trackers-button--merge', function() {
-            trackers.mergeMode = !trackers.mergeMode;
-        }],
         ['trackers-button--cancel-del', function() {
             trackers.deleteMode = false;
-        }],
-        ['trackers-button--cancel-merge', function() {
-            trackers.mergeMode = false;
+        // ['trackers-button--merge-sel', trackers.mergeSelected],
+        // ['trackers-button--merge', function() {
+        //     trackers.mergeMode = !trackers.mergeMode;
+        // }],
+        // }],
+        // ['trackers-button--cancel-merge', function() {
+        //     trackers.mergeMode = false;
         }]
     ].forEach(function(handle) {
         document.getElementById(handle[0]).addEventListener('click', handle[1].bind(trackers));
