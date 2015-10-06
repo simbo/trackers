@@ -27,23 +27,19 @@
 
     &-button,
     &-textbutton
-        height: tracker.button.size
-        line-height: height
         background: transparent
-        text-align: center
-        vertical-align: middle
+        height: tracker.button.size
 
 
     &-button
+        position: relative
+        display: block
         width: tracker.button.size
 
-        &::before
-            content: ''
-            display: inline-block
-            height: 100%
-            vertical-align: middle
-
     &-textbutton
+        line-height: height
+        text-align: center
+        vertical-align: middle
         width: auto
         padding: 0 .4em
         color: colors.foreground
@@ -60,10 +56,13 @@
                 color: colors.danger
 
     &-icon
-        display: inline-block
+        display: block
+        position: absolute
+        top: 50%
+        left: 50%
         width: 65%
-        height: auto
-        vertical-align: middle
+        height: 65%
+        transform: translate(-50%, -50%)
 
         circle,
         line
