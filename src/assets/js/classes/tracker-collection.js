@@ -16,7 +16,9 @@ var storage = window.localStorage;
 function TrackerCollection($, template) {
 
     var nextTrackerID = 0,
-        trackers = {};
+        trackers = {},
+        mergeMode = false,
+        deleteMode = false;
 
     if (!($.wrap instanceof HTMLDivElement)) throw new Error('invalid container');
     if (!($.list instanceof HTMLUListElement)) throw new Error('invalid list');
@@ -44,13 +46,27 @@ function TrackerCollection($, template) {
 
         mergeMode: {
             get: function() {
-                return (/(^|\ )trackers-merge-mode(\ |$)/i).test($.wrap.className);
+                return mergeMode;
+            },
+            set: function(mode) {
+                if (typeof mode === 'boolean') {
+                    if (deleteMode && mode) deleteMode = false;
+                    mergeMode = mode;
+                    setModeStatus.call(this);
+                }
             }
         },
 
         deleteMode: {
             get: function() {
-                return (/(^|\ )trackers-delete-mode(\ |$)/i).test($.wrap.className);
+                return deleteMode;
+            },
+            set: function(mode) {
+                if (typeof mode === 'boolean') {
+                    if (mergeMode && mode) mergeMode = false;
+                    deleteMode = mode;
+                    setModeStatus.call(this);
+                }
             }
         }
 
@@ -96,28 +112,21 @@ function TrackerCollection($, template) {
         return this;
     };
 
-    this.enableMergeMode = function() {
-        this.disableDeleteMode();
-        $.wrap.className += ' trackers-merge-mode';
-    };
-
-    this.disableMergeMode = function() {
-        $.wrap.className = $.wrap.className.replace(/(^|\ )trackers-merge-mode(\ |$)/ig, '$2');
-    };
-
-    this.enableDeleteMode = function() {
-        this.disableMergeMode();
-        $.wrap.className += ' trackers-delete-mode';
-    };
-
-    this.disableDeleteMode = function() {
-        $.wrap.className = $.wrap.className.replace(/(^|\ )trackers-delete-mode(\ |$)/ig, '$2');
-    };
+    function setModeStatus() {
+        var inputs = $.list.querySelectorAll('input, textarea'),
+            noMode = !this.mergeMode && !this.deleteMode;
+        $.wrap.className = $.wrap.className.replace(/(^|\ )trackers-(merge|delete)-mode(\ |$)/ig, '$3');
+        if (this.mergeMode) $.wrap.className += ' trackers-merge-mode';
+        if (this.deleteMode) $.wrap.className += ' trackers-delete-mode';
+        Object.keys(inputs).forEach(function(i) {
+            inputs[i].readOnly = !noMode;
+        });
+    }
 
     this.new = function() {
         var trackerID = nextTrackerID;
-        this.disableDeleteMode();
-        this.disableMergeMode();
+        this.deleteMode = false;
+        this.mergeMode = false;
         this.add();
         trackers[trackerID].start();
         document.getElementById('tracker-' + trackerID).querySelector('.tracker-description').focus();
@@ -166,18 +175,6 @@ TrackerCollection.prototype.removeAll = function() {
 };
 
 TrackerCollection.prototype.mergeSelected = function() {
-    return this;
-};
-
-TrackerCollection.prototype.toggleMergeMode = function() {
-    if (this.mergeMode) this.disableMergeMode();
-    else this.enableMergeMode();
-    return this;
-};
-
-TrackerCollection.prototype.toggleDeleteMode = function() {
-    if (this.deleteMode) this.disableDeleteMode();
-    else this.enableDeleteMode();
     return this;
 };
 

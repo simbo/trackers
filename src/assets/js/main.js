@@ -22,12 +22,20 @@ onDomReady(function() {
     // set button event handlers
     [
         ['trackers-button--add', trackers.new],
-        ['trackers-button--delete', trackers.toggleDeleteMode],
         ['trackers-button--rem-all', trackers.removeAll],
-        ['trackers-button--cancel-del', trackers.disableDeleteMode],
-        ['trackers-button--merge', trackers.toggleMergeMode],
         ['trackers-button--merge-sel', trackers.mergeSelected],
-        ['trackers-button--cancel-merge', trackers.disableMergeMode]
+        ['trackers-button--delete', function() {
+            trackers.deleteMode = !trackers.deleteMode;
+        }],
+        ['trackers-button--merge', function() {
+            trackers.mergeMode = !trackers.mergeMode;
+        }],
+        ['trackers-button--cancel-del', function() {
+            trackers.deleteMode = false;
+        }],
+        ['trackers-button--cancel-merge', function() {
+            trackers.mergeMode = false;
+        }]
     ].forEach(function(handle) {
         document.getElementById(handle[0]).addEventListener('click', handle[1].bind(trackers));
     });
