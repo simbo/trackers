@@ -117,7 +117,7 @@ function TrackerCollection($, template) {
     this.new = function() {
         var trackerID = nextTrackerID;
         this.disableDeleteMode();
-        this.disableDeleteMode();
+        this.disableMergeMode();
         this.add();
         trackers[trackerID].start();
         document.getElementById('tracker-' + trackerID).querySelector('.tracker-description').focus();
