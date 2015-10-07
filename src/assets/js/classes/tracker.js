@@ -251,18 +251,12 @@ Tracker.prototype.toggle = function() {
 };
 
 /**
- * format a duration to a string like HH:MM:SS
+ * format this trackers total duration to a string like HH:MM:SS
  * @param  {string} format   duration format string
- * @param  {mixed}  duration anything that can be converted to a duration object
  * @return {string}          formatted duration
  */
-Tracker.prototype.format = function(format, duration) {
-    format = typeof format === 'string' ? format : '%h:%m:%s';
-    duration = typeof duration !== 'undefined' ?
-        Tracker.anyToDuration(duration) : Tracker.numberToDuration(this.trackedTotal);
-    return Object.keys(duration).reverse().reduce(function(formatted, propertyName) {
-        return formatted.replace(new RegExp('%' + propertyName, 'ig'), ('0' + duration[propertyName]).slice(-2));
-    }, format);
+Tracker.prototype.format = function(format) {
+    return Tracker.format(Tracker.numberToDuration(this.trackedTotal), format);
 };
 
 /**
@@ -342,6 +336,20 @@ Tracker.anyToDuration = function(any) {
         return Tracker.numberToDuration(Tracker.durationToNumber(any));
     }
     throw new Error('unexpected duration type: ' + typeof any);
+};
+
+/**
+ * format a duration to a string like HH:MM:SS
+ * @param  {mixed}  duration anything that can be converted to a duration object
+ * @param  {string} format   duration format string
+ * @return {string}          formatted duration
+ */
+Tracker.format = function(duration, format) {
+    format = typeof format === 'string' ? format : '%h:%m:%s';
+    duration = typeof duration !== 'undefined' ? Tracker.anyToDuration(duration) : 0;
+    return Object.keys(duration).reverse().reduce(function(formatted, propertyName) {
+        return formatted.replace(new RegExp('%' + propertyName, 'ig'), ('0' + duration[propertyName]).slice(-2));
+    }, format);
 };
 
 module.exports = Tracker;
