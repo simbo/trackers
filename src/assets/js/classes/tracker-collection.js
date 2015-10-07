@@ -227,7 +227,7 @@ TrackerCollection.prototype.restore = function() {
         trackersArr = JSON.parse(storage.getItem('trackers')) || [];
         trackersArr.forEach(function(data, i) {
             data.unshift(null);
-            this.add(new (Function.prototype.bind.apply(Tracker, data)), trackersArr.length-1 === i);
+            this.add(new (Function.prototype.bind.apply(Tracker, data)), trackersArr.length - 1 === i);
         }.bind(this));
     } catch (err) {
         throw new Error('could not restore trackers');
@@ -355,7 +355,7 @@ function addTrackerEvents(tracker, trackerID, $) {
 
     return this;
 
-};
+}
 
 // export class
 module.exports = TrackerCollection;
