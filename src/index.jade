@@ -15,28 +15,28 @@ html(lang="en")
                     document.getElementsByTagName('head')[0].appendChild(link);
                 })(document.createElement('link'));
 body
-    #trackers-wrap.trackers-wrap
+    #trackers.trackers-wrap
         ul.trackers-button-list
             li.trackers-button-list_item
-                button#trackers-button--add.trackers-button.trackers-button--add(title="add a new tracker")
+                button.trackers-button.trackers-button--add(title="add a new tracker")
                     include assets/svg/clock-plus.jade
-            //- li.trackers-button-list_item
-            //-     button#trackers-button--merge.trackers-button.trackers-button--merge(title="toggle merge mode")
-            //-         include assets/svg/clock-merge.jade
-            li.trackers-button-list_item
-                button#trackers-button--delete.trackers-button.trackers-button--delete(title="toggle delete mode")
+            li.trackers-button-list_item.inactive(style="display:none")
+                button.trackers-button.trackers-button--merge(title="toggle merge mode")
+                    include assets/svg/clock-merge.jade
+            li.trackers-button-list_item.inactive
+                button.trackers-button.trackers-button--delete(title="toggle delete mode")
                     include assets/svg/clock-minus.jade
-        ul#trackers-list.trackers-list
+        ul.trackers-list
         .trackers-dialog--remove
             .trackers-dialog_col
-                button#trackers-button--rem-all.trackers-textbutton remove all
+                button.trackers-textbutton.trackers-button--rem-all remove all
             .trackers-dialog_col
-                button#trackers-button--cancel-del.trackers-textbutton cancel
-        //- .trackers-dialog--merge
-        //-     .trackers-dialog_col
-        //-         button#trackers-button--merge-sel.trackers-textbutton merge selected
-        //-     .trackers-dialog_col
-        //-         button#trackers-button--cancel-merge.trackers-textbutton cancel
+                button.trackers-textbutton.trackers-button--cancel-del cancel
+        .trackers-dialog--merge
+            .trackers-dialog_col
+                button.trackers-textbutton.trackers-button--merge-sel merge selected
+            .trackers-dialog_col
+                button.trackers-textbutton.trackers-button--cancel-merge cancel
     .trackers-metainfo
         p.trackers-version v#{version}
         a.trackers-github.trackers-button(href="https://github.com/simbo/trackers/")

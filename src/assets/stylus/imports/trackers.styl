@@ -22,6 +22,9 @@
             max-height: tracker.button.size
             padding: 0 (tracker.button.gutter / 2)
 
+            &.inactive
+                display: none
+
             & + &
                 border-left: 1px solid darken(colors.background, 25%)
 
@@ -49,11 +52,13 @@
 
         &:hover,
         &:focus
-            color: colors.highlight
+            color: colors.active
 
-            #trackers-button--rem-all&,
-            #trackers-button--merge-sel&
+            .trackers-button--rem-all&
                 color: colors.danger
+
+            .trackers-button--merge-sel&
+                color: colors.highlight
 
     &-icon
         display: block
@@ -76,9 +81,11 @@
 
             .trackers-button:focus &,
             .trackers-button:hover &
+                stroke: colors.active
+
+            .trackers-merge-mode .trackers-button.trackers-button--merge &
                 stroke: colors.highlight
 
-            .trackers-merge-mode .trackers-button.trackers-button--merge &,
             .trackers-delete-mode .trackers-button.trackers-button--delete &
                 stroke: colors.danger
 
@@ -87,7 +94,7 @@
 
             .trackers-button:focus &,
             .trackers-button:hover &
-                fill: colors.highlight
+                fill: colors.active
 
         &--clock
 
@@ -108,6 +115,18 @@
             &_minutes,
             &_seconds
                 transform: translate(-36px, -37px)
+
+    &-list
+        border-radius: 3px
+
+        .trackers-merge-mode &
+            box-shadow: 0 0 (tracker.height * .3) alpha(colors.highlight, 50%)
+            background: alpha(colors.highlight, 25%)
+
+        .trackers-delete-mode &
+            box-shadow: 0 0 (tracker.height * .3) alpha(colors.danger, 50%)
+            background: alpha(colors.danger, 25%)
+
 
     &-dialog
 
@@ -144,11 +163,13 @@
     position: relative
     vertical-align: top
     background: colors.background
-    border: 2px solid transparent
+    border-radius: 3px
 
     .trackers-merge-mode &,
     .trackers-delete-mode &
-        border-color: colors.danger
+
+        &:hover
+            background: alpha(colors.background, 50%)
 
     & + &
         margin-top: 1px
@@ -161,10 +182,10 @@
     .trackers-button
         display: block
         float: left
-        height: tracker.height
 
     &-tracked,
     &-description
+        height: tracker.height
         background-color: transparent
         outline: none
         border: 0
@@ -177,17 +198,29 @@
             font-weight: font.weight.normal
 
         &:focus
-            color: colors.highlight
+            color: colors.active
+
+            .trackers-merge-mode &,
+            .trackers-delete-mode &
+                color: colors.inactive
 
             &::placeholder
-                color: alpha(colors.highlight, .5)
+                color: alpha(colors.active, .5)
+
+                .trackers-merge-mode &,
+                .trackers-delete-mode &
+                    color: alpha(colors.inactive, .5)
 
         .tracker--tracking &
             font-weight: font.weight.strong
             color: colors.foreground
 
             &:focus
-                color: colors.highlight
+                color: colors.active
+
+                .trackers-merge-mode &,
+                .trackers-delete-mode &
+                    color: colors.foreground
 
     &-tracked
         width: tracker.input.size
@@ -222,3 +255,4 @@
 
         .trackers-merge-mode &
             display: block
+
