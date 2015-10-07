@@ -265,11 +265,17 @@ function addTrackerEvents(tracker, trackerID, $) {
         this.store();
     }.bind(this));
 
+    $.tracked.addEventListener('focus', function() {
+        $.tracked.dataset.prevValue = $.tracked.value;
+    });
+
     onValueUpdate($.tracked, function() {
         if (this.mergeMode || this.deleteMode) return;
-        tracker.tracked = Tracker.stringToDuration($.tracked.value);
-        if (tracker.tracking) tracker.trackingSince = Tracker.now();
-        this.store();
+        if (tracker.format('%h:%m:%s', Tracker.anyToDuration($.tracked.value)) !== $.tracked.dataset.prevValue) {
+            tracker.tracked = Tracker.stringToDuration($.tracked.value);
+            if (tracker.tracking) tracker.trackingSince = Tracker.now();
+            this.store();
+        }
     }.bind(this));
 
     $.tracked.addEventListener('blur', function() {
