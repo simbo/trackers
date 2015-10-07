@@ -144,6 +144,23 @@
             float: left
             padding-top: tracker.ui-margin
 
+    &-total
+        height: tracker.height
+        width: tracker.input.size
+        float: right
+        border-top: 1px solid darken(colors.background, 25%)
+        margin: (tracker.height * .4) tracker.height 0 0
+        line-height: tracker.height
+        color: colors.inactive
+        font-weight: font.weight.strong
+
+        &.inactive
+            display: none
+
+        .trackers-merge-mode &,
+        .trackers-delete-mode &
+            display: none
+
     &-metainfo
         position: absolute
         top: 15px
@@ -255,4 +272,3 @@
 
         .trackers-merge-mode &
             display: block
-

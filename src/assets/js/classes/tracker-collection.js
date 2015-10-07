@@ -33,6 +33,7 @@ function TrackerCollection(wrap, template) {
     $.merge = $.wrap.querySelector('.trackers-button--merge');
     $.mergeSel = $.wrap.querySelector('.trackers-button--merge-sel');
     $.cancelMerge = $.wrap.querySelector('.trackers-button--cancel-merge');
+    $.total = $.wrap.querySelector('.trackers-total');
 
     if (!storage) {
         throw new Error('localStorage not available');
@@ -145,21 +146,34 @@ function TrackerCollection(wrap, template) {
         document.getElementById('tracker-' + trackerID).querySelector('.tracker-description').focus();
     }.bind(this);
 
+    this.updateTotal = function() {
+        $.total.innerHTML = Tracker.format(Object.keys(trackers).reduce(function(sum, trackerID) {
+            var tracker = trackers[trackerID];
+            sum += tracker.trackedTotal;
+            return sum;
+        }, 0));
+    };
+
     setUiEvents.call(this, $);
 
 }
 
 function onTrackersListEdit($) {
     if (this.trackersSize === 0) {
+        $.total.className += ' inactive';
         $.delete.parentNode.className += ' inactive';
         this.deleteMode = false;
+    } else {
+        removeClass($.total, 'inactive');
+        removeClass($.delete.parentNode, 'inactive');
     }
-    else removeClass($.delete.parentNode, 'inactive');
     if (this.trackersSize <= 1) {
         $.merge.parentNode.className += ' inactive';
         this.mergeMode = false;
+    } else {
+        removeClass($.merge.parentNode, 'inactive');
     }
-    else removeClass($.merge.parentNode, 'inactive');
+    this.updateTotal();
 }
 
 function setModeStatus($) {
@@ -271,9 +285,10 @@ function addTrackerEvents(tracker, trackerID, $) {
 
     onValueUpdate($.tracked, function() {
         if (this.mergeMode || this.deleteMode) return;
-        if (tracker.format('%h:%m:%s', Tracker.anyToDuration($.tracked.value)) !== $.tracked.dataset.prevValue) {
+        if (Tracker.format(Tracker.anyToDuration($.tracked.value)) !== $.tracked.dataset.prevValue) {
             tracker.tracked = Tracker.stringToDuration($.tracked.value);
             if (tracker.tracking) tracker.trackingSince = Tracker.now();
+            this.updateTotal();
             this.store();
         }
     }.bind(this));
@@ -333,7 +348,8 @@ function addTrackerEvents(tracker, trackerID, $) {
             if ($.tracked !== document.activeElement || this.mergeMode || this.deleteMode) {
                 $.tracked.value = tracker.format();
             }
-        }.bind(this));
+            this.updateTotal();
+        }.bind(this), 1000);
     }
 
     /**
